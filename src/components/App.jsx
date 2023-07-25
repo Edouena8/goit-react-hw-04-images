@@ -55,14 +55,14 @@ export default function App() {
   }, [imageName, page, perPage]);
 
   return (
-    <AppWrap >
-      <Searchbar onSubmit={handleFormSubmit}/>
+    <AppWrap>
+      <Searchbar onSubmit={handleFormSubmit} />
       {!imageName && <p>Enter name of the pictures.</p>}
-      {loading &&  <Loader/>}
       {error && <h2>{error.message}</h2>}
-      {images.length > 0 && <ImageGallery images={images}/>}
-      {showBtn && <Button onClick={handleLoadMoreBtnClick}/>} 
-      <ToastContainer autoClose={3000} theme="dark"/>
+      {images.length > 0 && <ImageGallery images={images} />}
+      {showBtn && <Button onClick={handleLoadMoreBtnClick} />}
+      {loading && <Loader />}
+      <ToastContainer autoClose={3000} theme="dark" />
     </AppWrap>
   );
 };

@@ -10,9 +10,9 @@ import { AppWrap } from "./App.styled";
 export default function App() {
   const [imageName, setImageName] = useState('');
   const [page, setPage] = useState(1);
+  const [perPage] = useState(12);
   const [images, setImages] = useState([]);
   const [loading, setLoading] = useState(false);
-  // const [totalHits, setTotalHits] = useState(0);
   const [error, setError] = useState(null);
   const [showBtn, setShowBtn] = useState(false);
 
@@ -21,34 +21,38 @@ export default function App() {
     setPage(1);
     setImages([]);
     setLoading(false);
-    // setTotalHits(0);
     setError(null);
     setShowBtn(false);
   };
 
   const handleLoadMoreBtnClick = () => {
     setPage(prevPage => prevPage + 1);
+    setShowBtn(false);
+    setLoading(true);
   };
 
   useEffect(() => {
-    if(!imageName){
+    if (!imageName) {
       return;
     }
     setLoading(true);
-    
-    fetchImages(imageName, page)
-      .then(({hits, totalHits}) => {
-        if(!hits.length) {
-            toast.error(`${imageName} not found`);
-            return;
+
+    fetchImages(imageName, page, perPage)
+      .then(({ hits, totalHits }) => {
+        if (!hits.length) {
+          toast.error(`${imageName} not found`);
+          return;
         }
 
         setImages(prevImages => [...prevImages, ...hits]);
         setShowBtn(page < Math.ceil(totalHits / 12));
       })
-      .catch(error => setError(error))
-      .finally(() => setLoading(false))
-  }, [imageName, page]);
+      .catch(error => {
+        setError(error);
+        setShowBtn(false);
+      })
+      .finally(() => setLoading(false));
+  }, [imageName, page, perPage]);
 
   return (
     <AppWrap >

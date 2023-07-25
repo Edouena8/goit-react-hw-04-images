@@ -1,14 +1,16 @@
-import { LoadMoreBtn } from "./Button.styled";
-import PropTypes from "prop-types";
+import { LoadMoreBtn } from './Button.styled';
+import PropTypes from 'prop-types';
 
-const Button = ({onClick}) => {
-        return (
-            <LoadMoreBtn onClick={onClick} type="button">Load more</LoadMoreBtn>
-        )
+const Button = ({ onClick }) => {
+  return (
+    <LoadMoreBtn type="button" onClick={onClick}>
+      Load more
+    </LoadMoreBtn>
+  );
 };
 
 Button.propTypes = {
-    onClick: PropTypes.func.isRequired,
-}
+  onClick: PropTypes.func.isRequired,
+};
 
 export default Button;
